@@ -1,0 +1,29 @@
+package com.ksd.pug.security.handler;
+
+import com.ksd.pug.commons.resultex.domain.R;
+import com.pug.commons.utils.json.FastJsonUtil;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.web.access.AccessDeniedHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+/**
+ * @author zhoubin
+ * @since 1.0.0
+ */
+public class MyAccessDeniedHandler implements AccessDeniedHandler {
+
+   @Override
+   public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      response.setHeader("Content-Type", "application/json;charset=utf-8");
+      PrintWriter out = response.getWriter();
+      out.write(FastJsonUtil.toJSON(R.error(600,"权限不足，请联系管理员！")));
+      out.flush();
+      out.close();
+   }
+}

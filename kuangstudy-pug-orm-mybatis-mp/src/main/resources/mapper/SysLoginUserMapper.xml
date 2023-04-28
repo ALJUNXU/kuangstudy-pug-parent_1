@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ksd.orm.pug.mapper.SysLoginUserMapper">
+
+    <select id="findSysRoleByUserId" resultType="com.ksd.pug.pojo.SysRole">
+       SELECT
+            u.*
+        FROM
+            sys_role_user sru
+        LEFT JOIN sys_role u ON u.id = sru.sys_role_id
+        WHERE
+            sru.sys_user_id = #{userId}
+    </select>
+
+</mapper>
